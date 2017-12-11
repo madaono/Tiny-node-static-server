@@ -6,10 +6,6 @@ module.exports = {
     },
     "extends": "eslint:recommended",
     "rules": {
-        "indent": [
-            "error",
-            "tab"
-        ],
         "linebreak-style": [
             "warn",
             "windows"
@@ -21,6 +17,7 @@ module.exports = {
         "semi": [
             "error",
             "always"
-        ]
+        ],
+        "no-console": "off",
     }
 };
