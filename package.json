@@ -8,10 +8,9 @@
     "lint": "eslint .",
     "fix": "eslint --fix ."
   },
-  "pre-commit": [
-    "fix",
-    "lint"
-  ],
+  // "pre-commit": [
+  //   "fix"
+  // ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/madaono/Tiny-node-static-server.git"
