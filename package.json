@@ -1,0 +1,33 @@
+{
+  "name": "tiny-node-static-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "fix": "eslint --fix ."
+  },
+  "pre-commit": [
+    "fix",
+    "lint"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/madaono/Tiny-node-static-server.git"
+  },
+  "keywords": [
+    "node",
+    "server",
+    "static"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/madaono/Tiny-node-static-server/issues"
+  },
+  "homepage": "https://github.com/madaono/Tiny-node-static-server#readme",
+  "devDependencies": {
+    "pre-commit": "^1.2.2"
+  }
+}
