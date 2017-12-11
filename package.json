@@ -28,6 +28,8 @@
   },
   "homepage": "https://github.com/madaono/Tiny-node-static-server#readme",
   "devDependencies": {
+    "babel-eslint": "^8.0.3",
+    "eslint": "^4.13.0",
     "pre-commit": "^1.2.2"
   }
 }
