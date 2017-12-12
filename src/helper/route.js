@@ -1,7 +1,13 @@
 const fs = require('fs');
+const path = require('path');
+const pug = require('pug');
 const promisify = require('util').promisify;
 const stat = promisify(fs.stat);
 const readdir = promisify(fs.readdir);
+const config = require('../config/defaultConfig');
+
+const tplPath = path.join(__dirname, '../template/dir.pug');
+const source = fs.readFileSync(tplPath,'utf-8');
 
 module.exports = async function (req, res, filePath) {
     try {
@@ -12,12 +18,19 @@ module.exports = async function (req, res, filePath) {
             // fs.readFile(filePath, (err, data) => { //这种异步的写法很慢，需要将全部的文件读取下来才会进行下一步
             //     res.end(data);
             // })
-            fs.createReadStream(filePath.pipe(res));
+            fs.createReadStream(filePath).pipe(res);
         } else if (stats.isDirectory()){
             const files = await readdir(filePath);
             res.statusCode = 200;
             res.setHeader('Content-Type','text/html');
-            res.end(files.join(','));
+            const dir = path.relative(config.root, filePath);
+            const data = {
+                title: path.basename(filePath),
+                dir: dir ? `/${dir}` : '',
+                files
+            };
+            res.end(pug.render(source, data));
+            // res.end('<h1>hehe</h1>');
         }
     } catch (e){
         console.error(e);
@@ -25,4 +38,4 @@ module.exports = async function (req, res, filePath) {
         res.setHeader('Content-Type','text/html');
         res.end(`${filePath} is not a directory or file`);
     }
-}
+};

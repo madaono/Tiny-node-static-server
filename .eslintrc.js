@@ -5,6 +5,7 @@ module.exports = {
         "es6": true
     },
     "extends": "eslint:recommended",
+    "parser": "babel-eslint",
     "rules": {
         "linebreak-style": [
             "warn",
