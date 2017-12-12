@@ -30,7 +30,6 @@ module.exports = async function (req, res, filePath) {
                 files
             };
             res.end(pug.render(source, data));
-            // res.end('<h1>hehe</h1>');
         }
     } catch (e){
         console.error(e);
