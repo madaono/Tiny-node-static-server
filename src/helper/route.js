@@ -7,6 +7,7 @@ const readdir = promisify(fs.readdir);
 const config = require('../config/defaultConfig');
 const mime = require('./mime');
 const compress = require('./compress');
+const range = require('./range');
 
 const tplPath = path.join(__dirname, '../template/dir.pug');
 const source = fs.readFileSync(tplPath,'utf-8');
@@ -21,10 +22,17 @@ module.exports = async function (req, res, filePath) {
             // fs.readFile(filePath, (err, data) => { //这种异步的写法很慢，需要将全部的文件读取下来才会进行下一步
             //     res.end(data);
             // })
-            let rs = fs.createReadStream(filePath);
+            let rs;
+            const {code, start, end} = range(stats.size, req, res);
+            if (code === 200){
+                rs = fs.createReadStream(filePath);
+            } else {
+                rs = fs.createReadStream(filePath, {start, end});
+            }
+            
             if (filePath.match(config.compress)) {
                 rs = compress(rs, req, res); 
-            };
+            }
             rs.pipe(res);
         } else if (stats.isDirectory()){
             const files = await readdir(filePath);
