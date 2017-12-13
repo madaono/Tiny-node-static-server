@@ -8,6 +8,7 @@ const config = require('../config/defaultConfig');
 const mime = require('./mime');
 const compress = require('./compress');
 const range = require('./range');
+const isFresh = require('./cache');
 
 const tplPath = path.join(__dirname, '../template/dir.pug');
 const source = fs.readFileSync(tplPath,'utf-8');
@@ -21,6 +22,11 @@ module.exports = async function (req, res, filePath) {
             // fs.readFile(filePath, (err, data) => { //这种异步的写法很慢，需要将全部的文件读取下来才会进行下一步
             //     res.end(data);
             // })
+            if (isFresh(stats, req, res)) {
+                res.statusCode = 304;
+                res.end();
+                return;
+            }
             let rs;
             const {code, start, end} = range(stats.size, req, res);
             if (code === 200){

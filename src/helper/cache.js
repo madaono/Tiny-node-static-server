@@ -12,7 +12,7 @@ function refreshRes(stats, res) {
         res.setHeader('Last-Modified', stats.mtime.toUTCString());
     }
     if (etag) {
-        res.setHeader('ETag', `${stats.size}-${stats.mtime}`);
+        res.setHeader('ETag', `${stats.size}-${stats.mtime.toUTCString()}`);
     }
 }
 
@@ -23,7 +23,7 @@ module.exports = function isFresh(stats, req, res) {
     if(!lastModified && !etag){
         return false;
     }
-    if (lastModified && lastModified !== res.getHeader('lastModified')){
+    if (lastModified && lastModified !== res.getHeader('Last-Modified')){
         return false;
     }
     if (etag && etag !== res.getHeader('ETag')){
