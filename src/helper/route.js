@@ -5,6 +5,7 @@ const promisify = require('util').promisify;
 const stat = promisify(fs.stat);
 const readdir = promisify(fs.readdir);
 const config = require('../config/defaultConfig');
+const mime = require('./mime');
 
 const tplPath = path.join(__dirname, '../template/dir.pug');
 const source = fs.readFileSync(tplPath,'utf-8');
@@ -13,8 +14,9 @@ module.exports = async function (req, res, filePath) {
     try {
         const stats = await stat(filePath);
         if (stats.isFile()){
+            const contentType = mime(filePath);
             res.statusCode = 200;
-            res.setHeader('Content-Type','text/html');
+            res.setHeader('Content-Type', contentType);
             // fs.readFile(filePath, (err, data) => { //这种异步的写法很慢，需要将全部的文件读取下来才会进行下一步
             //     res.end(data);
             // })
