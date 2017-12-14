@@ -1,8 +1,8 @@
 {
   "name": "tiny-node-static-server",
   "version": "1.0.0",
-  "description": "",
-  "main": ".eslintrc.js",
+  "description": "tiny-node-static-server",
+  "main": "src/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "chalk": "^2.3.0",
-    "pug": "^2.0.0-rc.4"
+    "pug": "^2.0.0-rc.4",
+    "yargs": "^10.0.3"
   }
 }

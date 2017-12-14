@@ -4,7 +4,7 @@ const pug = require('pug');
 const promisify = require('util').promisify;
 const stat = promisify(fs.stat);
 const readdir = promisify(fs.readdir);
-const config = require('../config/defaultConfig');
+// const config = require('../config/defaultConfig');
 const mime = require('./mime');
 const compress = require('./compress');
 const range = require('./range');
@@ -13,7 +13,7 @@ const isFresh = require('./cache');
 const tplPath = path.join(__dirname, '../template/dir.pug');
 const source = fs.readFileSync(tplPath,'utf-8');
 
-module.exports = async function (req, res, filePath) {
+module.exports = async function (req, res, filePath, config) {
     try {
         const stats = await stat(filePath);
         if (stats.isFile()){
