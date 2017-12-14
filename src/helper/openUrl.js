@@ -9,4 +9,4 @@ module.exports = url => {
             exec(`start ${url}`);
             break;
     }
-}
+};
